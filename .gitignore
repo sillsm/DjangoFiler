@@ -1,2 +1,6 @@
-elFinder/
-elFinder/*
+elfindertest/connector/static/
+elfindertest/*.bat
+*.bat
+*.pyc
+elfindertest/*.[yc]
+
