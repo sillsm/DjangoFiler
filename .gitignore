@@ -3,4 +3,6 @@ elfindertest/*.bat
 *.bat
 *.pyc
 elfindertest/*.[yc]
+elfindertest/media/
+elfindertest/media/*
 
