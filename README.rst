@@ -1,6 +1,6 @@
 Welcome to elFinder for django documentation!
 ===================================================
-	elFinder4django is a django connector for <a href="http://elfinder.org">elFinder</a> file manager.
+	elFinder4django is a django connector for `elFinder`__ file manager.
 	
 .. note::
 
@@ -33,4 +33,4 @@ Quick Installation Guide
 	#. you should see now all your ``MEDIA_ROOT`` sub files are now appeared. if not, make sure your django version is ``1.3``, django version ``<= 1.2`` is not supported until you install ``django-staticfiles`` .
 
 
-.. __elFinder: http://elfinder.org
+.. __: http://elfinder.org
