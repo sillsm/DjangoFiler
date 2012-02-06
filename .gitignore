@@ -5,8 +5,8 @@ elfindertest/*.bat
 elfindertest/*.[yc]
 elfindertest/media/
 elfindertest/media/*
-elfindertest/packup/
-elfindertest/packup/*
+elfindertest/backup/
+elfindertest/backup/*
+
 docs/build/
 docs/build/*
-

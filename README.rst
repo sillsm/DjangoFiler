@@ -1,5 +1,5 @@
-Welcome to elFinder for django documentation!
-===================================================
+Welcome to elFinder for django
+===============================
 	elFinder4django is a django connector for `elFinder <http://elfinder.org>`_ file manager.
 	
 .. note::
