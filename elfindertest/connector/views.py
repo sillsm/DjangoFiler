@@ -6,7 +6,7 @@ from django.conf import settings
 from elfinder.operations import Operation
 
 def index(request):
-	return render_to_response('index.html', {}, context_instance=RequestContext(request))
+	return render_to_response('elfinder.html', {}, context_instance=RequestContext(request))
 def sounds(request):
 	return HttpResponseRedirect(u'%s%s'%(settings.STATIC_URL, request.path.split('/', 1)[1]))
 	
