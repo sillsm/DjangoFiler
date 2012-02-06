@@ -28,7 +28,7 @@ Quick Installation Guide
 		)
 	#. Make sure you set ``MEDIA_URL``, ``MEDIA_ROOT``, ``STATIC_URL``.
 	#. Make sure you activate ``MEDIA_URL`` in your urls.py.
-	#. download elFinder **version 2.x** from `elFinder`_  site (**note:** currently in 2.0-beta) . extract it in ``connect/static`` directory make sure you renamed it as ``elFinder``.
+	#. download elFinder **version 2.x** from `elFinder`__  site (**note:** currently in 2.0-beta) . extract it in ``connect/static`` directory make sure you renamed it as ``elFinder``.
 	#. if all these settings are Ok, run your server and point it to ``http://<host>:<port>/elfinder/``.
 	#. you should see now all your ``MEDIA_ROOT`` sub files are now appeared. if not, make sure your django version is ``1.3``, django version ``<= 1.2`` is not supported until you install ``django-staticfiles`` .
 
