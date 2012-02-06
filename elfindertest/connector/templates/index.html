@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="{{STATIC_URL}}elFinder/css/quicklook.css"   type="text/css" media="screen" charset="utf-8">
 	<link rel="stylesheet" href="{{STATIC_URL}}elFinder/css/commands.css"    type="text/css" media="screen" charset="utf-8">
 	
-	<link rel="stylesheet" href="{{STATIC_URL}}elFinder/css/theme.css"       type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="{{STATIC_URL}}elFinder/css/theme.css"  type="text/css" media="screen" charset="utf-8">
 	
 	<!-- elfinder core -->
 	<script src="{{STATIC_URL}}elFinder/js/elFinder.js"           type="text/javascript" charset="utf-8"></script>
@@ -148,18 +148,19 @@
 			$('#finder').elfinder({
 				// url : 'php/connector.php',
 				url : 'connector',
-				// transport : new elFinderSupportVer1(),
-				// getFileCallback : function(files, fm) {
-				// 	console.log(files);
-				// },
+				customData:{csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+				//transport : new elFinderSupportVer1(),
+				//getFileCallback : function(files, fm) {
+				 //	console.log(files);
+				 //},
 				handlers : {
 					load : function(e, fm) {
-						// fm.error('All your base belongs to us >_<')
+						//fm.error('All your base belongs to us >_<')
 					}
 				},
-				// onlyMimes : ['image', 'text/plain']
+			    //onlyMimes : ['image', 'text/plain'],
 				lang : 'en',
-				// requestType : 'POST',
+				requestType : 'POST',
 				// rememberLastDir : false,
 				// ui : ['tree', 'toolbar'],
 				// ui : ['toolbar', 'places', 'tree', 'path', 'stat'],
@@ -219,7 +220,7 @@
 			$('#dialog').click(function() {
 				
 				var fm = $('<div/>').dialogelfinder({
-					url : 'php/connector.php',
+					url : 'connector',
 					lang : 'en',
 					width : 840,
 					destroyOnClose : true,
@@ -264,6 +265,6 @@
 	
 	<!-- <div><input type="text" id="i1"></div> -->
 	<!-- <div><input type="text" id="i2"></div> -->
-
+	{%csrf_token%}
 </body>
 </html>

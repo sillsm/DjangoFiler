@@ -10,6 +10,7 @@ import re
 class BaseCommand(object):
 	'''The Base Command Abstract Class'''
 	def __init__(self, **kwargs):
+		#if re.match(r'^[A-Za-z_]+[A-Za-z0-9]*$', '_ajkau8hq')
 		self.success = False
 		self.errors = []
 		self.result = {}
@@ -24,7 +25,6 @@ class BaseCommand(object):
 				if re.match(r'^[A-Za-z_]+[A-Za-z0-9]*$', k):
 					setattr(self, k, v[0])
 				elif re.match(r'^[A-Za-z_]+[A-Za-z0-9]*\[\]$', k):
-					k = k.replace('[]', '') #e.g. targets[] will be targets
 					setattr(self, k, v)
 				else:
 					#prefix k with underscore
@@ -53,7 +53,7 @@ class BaseCommand(object):
 	def validate_params(self):
 		for param in self.required:
 			if hasattr(self, param):
-				if getattr(self, param):
+				if getattr(self, para):
 					self.can_execute = True
 				else:
 					self.can_execute = False
@@ -61,17 +61,9 @@ class BaseCommand(object):
 			else:
 				self.can_execute = False
 				break
-		for opt in self.optional:
-			if not hasattr(self, opt):
-				try:
-					setattr(self, opt, None)
-				except:
-					pass
 		if not self.required:
 			self.can_execute = True
-		self.validate()
-	def validate(self):
-		pass
+		#check also for self.optional
 	def get_url(self, path):
 		elfinder_root = ELFINDER_ROOT
 		elfinder_abspath = elfinder_root
@@ -112,7 +104,10 @@ class BaseCommand(object):
 							pass
 					return fp
 			d = os.path.abspath(dirpath)
+			print '' # u'````````PATH NOW ++++ %s'%d
+			print '' # u'````````ELFINDER PATH NOW ++++ %s'%os.path.abspath(ELFINDER_ROOT)
 			rd = d
+			#d = d.encode('utf8')
 			if fhash == self.hash(d):
 				fp = d
 				if resolution:
@@ -124,6 +119,7 @@ class BaseCommand(object):
 			
 		return fp
 	def cwd(self, path, volume=False):
+		print '' # u'PATHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYXXXXXXXXX ' +path
 		d = {}
 		time = 'Today'
 		ts = 0
@@ -214,6 +210,8 @@ class BaseCommand(object):
 	def get_volume_id(self, path):
 		return self.hash(ELFINDER_ROOT)[0:2]
 	def get_thumb_url(self, path):
+		print '\n'*10
+		print 'INSIDE GET THUMB URL'
 		hash = self.hash(path)
 		ext = path.rsplit('.', 1)[1]
 		full_path = os.path.join(ELFINDER_THUMB, u'%s.%s'%(hash, ext))
@@ -234,6 +232,7 @@ class BaseCommand(object):
 		parent_hash = self.get_parent_hash(f)
 		if parent_hash:
 			l['phash'] = parent_hash
+			#print '' # 'getFILE INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO:::::: AFTER PARENR HASHHHHHHH .....'
 		l['date'] = datetime.fromtimestamp(os.stat(f).st_mtime).strftime("%d %b %Y %H:%M")
 		mime, is_image = self.get_mime(f)
 		if is_image and self.imglib:
@@ -242,12 +241,15 @@ class BaseCommand(object):
 				l['tmb'] = self.get_thumb_url(f)
 			except:
 				pass
+		#print '' # u'getFILE INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO:::::: AFTER IS IMAGE.....'
 		l['mime'] = mime
 		l['size'] = self.get_size(f)
 		l['read'] = True
 		l['write'] = True
+		#print '' # u'getFILE INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO:::::: SOME HOW.....'
 		l['rm'] = True
 		l['url'] = self.get_url(f)
+		#print '' # u'getFILE INFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO:::::: AFTER GET URL.....'
 		return l
 	def get_dir_info(self, d):
 		l = {}
@@ -265,17 +267,29 @@ class BaseCommand(object):
 		l['dirs'] = self.has_dirs(d)
 		return l
 	def check_name(self, name):
+		print '' # '\n'*10
+		print '' # 'INSIDE CHECK NAME     '
 		pattren = ur'[\/\\\:\<\>]'
 		if re.search(pattren, name, re.UNICODE):
+			print '' # 'OUTSIDE CHECK NAME KKKKKKKK'
 			return False
+		print '' # 'OUTSIDE CHECK NAME KKKKKKKK TRUE'
 		return True
 	def file_exists(self, path, new_name):
+		print '' # '\n'*9
+		print '' # u'CALLING FUNCTIONFDSSJHGBHG >>>>>>>>>>>>>>>>>>>'
+		print '' # 'CALLING BEFORE INCODING >>>>>>>>>>>>>>>>>>> %s'%path
+		print '' # 'OS.PTH.DIRNAME IS %s'%os.path.dirname(path)
 		try:
 			path = u'%s'%unicode(path, 'utf8')
 		except:
-			pass
+			print '' # 'This is an Error for English file names ---- F'
 		new_name = u'%s'%new_name
+		print '' # 'FILE EXISTS TURNED TO UNICODE SUCESSSSS '
 		abspath = os.path.join(path, new_name)
+		print '' # u'CALLING FUNCTIONFDSSJHGBHG PHASE 2 %s'%os.path.dirname(abspath)
+		print '' # '\n'*6
+		#print '' # u'NOE KLJJKJKJ PATH BBNNNMK<KOKOKO ::: %s '%abspath
 		return os.path.exists(abspath)
 	def get_info(self, path):
 		if os.path.isdir(path):
@@ -306,72 +320,3 @@ class BaseCommand(object):
 		self.validate_params()
 		if self.can_execute:
 			self.execute()
-	def get_archiveable(self):
-		ext = []
-		#application/x-tar
-		#application/x-gzip
-		#application/x-bzip2
-		try:
-			import tarfile
-			ext.extend((
-				"application/x-tar",
-				"application/x-gzip",
-				"application/x-bzip2"))
-		except ImportError, e:
-			pass
-		#application/zip
-		try:
-			import zipfile
-			ext.append("application/zip")
-		except ImportError, e:
-			pass
-		#application/x-7z-commpressed
-		#check if pylzma installed
-		#download from http://pypi.python.org/pypi/pylzma
-		try:
-			import pylzma
-			ext.append("application/x-7z-compressed")
-		except ImportError, e:
-			pass
-		#application/x-rar
-		#check if rarfile archive reader is installed
-		#download it http://pypi.python.org/pypi/rarfile/
-		try:
-			import rarfile
-			ext.append("application/x-rar")
-		except ImportError, e:
-			pass
-		return ext
-	def get_extractable(self):
-		ext = []
-		#application/x-tar
-		#application/x-gzip
-		#application/x-bzip2
-		try:
-			import tarfile
-			ext.extend((
-				"application/x-tar",
-				"application/x-gzip",
-				"application/x-bzip2"))
-		except ImportError, e:
-			pass
-		#application/x-zip-compressed
-		try:
-			import zipfile
-			ext.append("application/x-zip-compressed")
-		except ImportError, e:
-			pass
-		#application/x-7z-commpressed
-		try:
-			import pylzma
-			ext.append("application/x-7z-compressed")
-		except ImportError, e:
-			pass
-		#application/x-rar
-		try:
-			import rarfile
-			ext.append("application/x-rar")
-		except ImportError, e:
-			pass
-		
-		return ext
