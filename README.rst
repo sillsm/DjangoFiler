@@ -32,3 +32,4 @@ Quick Installation Guide
 	#. if all these settings are Ok, run your server and point it to ``http://<host>:<port>/elfinder/``.
 	#. you should see now all your ``MEDIA_ROOT`` sub files are now appeared. if not, make sure your django version is ``1.3``, django version ``<= 1.2`` is not supported until you install ``django-staticfiles`` . for more info refer to :doc:`configure`
 
+.. _elFinder: http://elfinder.org
