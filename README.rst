@@ -13,7 +13,7 @@ Quick Installation Guide
 
 	#. simply, download and extract elfinder4django into temporary folder.
 	#. copy the application folder called ``connector`` ( found in ``elfinder4django/elfindertest/connector`` ) inside your django project. 
-	#. add `connector` in your ``INSTALLED_APPS`` inside :file:`settings.py` ::
+	#. add `connector` in your ``INSTALLED_APPS`` inside ``settings.py`` ::
 	
 		INSTALLED_APPS = (
 			'connector',
