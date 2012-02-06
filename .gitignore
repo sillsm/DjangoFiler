@@ -7,4 +7,6 @@ elfindertest/media/
 elfindertest/media/*
 elfindertest/packup/
 elfindertest/packup/*
+docs/build/
+docs/build/*
 
