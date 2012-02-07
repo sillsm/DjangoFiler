@@ -31,6 +31,11 @@ Quick Installation Guide
 	#. download elFinder **version 2.x** from `elFinder <http://elfinder.org>`_  site (**note:** currently in 2.0-beta) . extract it in ``connect/static`` directory make sure you renamed it as ``elFinder``.
 	#. if all these settings are Ok, run your server and point it to ``http://<host>:<port>/elfinder/``.
 	#. you should see now all your ``MEDIA_ROOT`` sub files are now appeared. if not, make sure your django version is ``1.3``, django version ``<= 1.2`` is not supported until you install ``django-staticfiles`` .
+	
+	
+.. tip::
+	
+	for the full documentation, please follow this link : `elFinder for django documentation <http://readthedocs.org/docs/elfinder-for-django/en/latest/>`_
 
 
 .. _elFinder: http://elfinder.org
